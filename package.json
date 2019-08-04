@@ -1,0 +1,27 @@
+{
+  "name": "filly-movie",
+  "version": "0.0.1",
+  "description": "",
+  "scripts": {
+    "build:prod": "gulp build:prod",
+    "build": "gulp build:dev",
+    "bundle": "gulp bundle:dev"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dashjs": "^3.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "babelify": "^10.0.0",
+    "browserify": "^16.3.0",
+    "gulp": "^4.0.2",
+    "gulp-sourcemaps": "^2.6.5",
+    "gulp-terser": "^1.2.0",
+    "vinyl-buffer": "^1.0.1",
+    "vinyl-source-stream": "^2.0.0"
+  }
+}
