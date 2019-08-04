@@ -12,7 +12,7 @@ const browserifyOptions = {
     basedir: '.',
     paths: ['src'],
     debug: true
-}
+};
 
 function prod() {
     return browserify(browserifyOptions)
@@ -25,7 +25,7 @@ function prod() {
         .pipe(uglify())
         .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest('dist/js'));
-};
+}
 
 function dev() {
     return browserify(browserifyOptions)
@@ -36,6 +36,6 @@ function dev() {
         .pipe(sourcemaps.init({ loadMaps: true }))
         .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest('dist/js'));
-};
+}
 
 module.exports = { prod, dev };

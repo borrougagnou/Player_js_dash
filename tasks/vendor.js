@@ -31,4 +31,3 @@ function dev() {
 }
 
 module.exports = { prod, dev };
-

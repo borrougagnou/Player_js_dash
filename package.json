@@ -11,13 +11,18 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "dashjs": "^3.0.0"
+    "dashjs": "^3.0.0",
+    "font-awesome": "^4.7.0",
+    "font-awesome-animation": "^0.2.1",
+    "silvermine-videojs-quality-selector": "^1.1.2",
+    "video.js": "^7.6.0"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
     "babelify": "^10.0.0",
     "browserify": "^16.3.0",
+    "eslint": "^6.1.0",
     "gulp": "^4.0.2",
     "gulp-sourcemaps": "^2.6.5",
     "gulp-terser": "^1.2.0",

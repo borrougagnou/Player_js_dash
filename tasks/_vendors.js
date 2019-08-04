@@ -1,3 +1,4 @@
 module.exports = [
-    'dashjs'
+    'dashjs',
+    'video.js'
 ];

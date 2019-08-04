@@ -1,0 +1,44 @@
+html,
+body {
+    margin: 0px;
+    padding: 0px;
+    background: #222;
+    color: #ccc;
+    font-family: arial;
+}
+
+a {
+    color: #82bf56;
+    text-decoration: none;
+}
+
+video {
+    width: 100% !important;
+    height: auto !important;
+    border: 6px solid #101010;
+    border-radius: 10px;
+    background: url(offline.jpeg) no-repeat center center;
+}
+
+.left {
+    float: left;
+}
+
+#divvid {
+    width: 70%;
+    margin: 30px;
+}
+
+#divchat {
+    width: 25%;
+    padding-top: 15px;
+}
+
+#chat {
+    border: 1px solid #2d2d2d;
+    padding: 20px;
+    width: 90%;
+    height: 85%;
+    margin-top: 15px;
+    border-radius: 7px;
+}
