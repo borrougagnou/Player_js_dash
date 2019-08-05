@@ -1,9 +1,4 @@
-const shaka = require('shaka-player/dist/shaka-player.ui.js');
-
-// https://shaka-player-demo.appspot.com/docs/api/tutorial-ui.html
-
-var manifestUri =
-    'https://dash.akamaized.net/envivio/EnvivioDash3/manifest.mpd';
+var manifestUri = 'https://irtdashreference-i.akamaihd.net/dash/live/901161/bfs/manifestBR.mpd';
 
 async function init() {
     // When using the UI, the player is made automatically by the UI object.
@@ -11,6 +6,10 @@ async function init() {
     const ui = video['ui'];
     const controls = ui.getControls();
     const player = controls.getPlayer();
+    const config = {
+        addSeekBar: false
+    };
+    ui.configure(config);
 
     // Listen for error events.
     player.addEventListener('error', onPlayerErrorEvent);
@@ -19,9 +18,7 @@ async function init() {
     // Try to load a manifest.
     // This is an asynchronous process.
     try {
-        await player.load(manifestUri);
-        // This runs if the asynchronous load is successful.
-        console.log('The video has now been loaded!');
+        player.load(manifestUri);
     } catch (error) {
         onPlayerError(error);
     }
@@ -29,7 +26,7 @@ async function init() {
 
 function onPlayerErrorEvent(errorEvent) {
     // Extract the shaka.util.Error object from the event.
-    onPlayerError(event.detail);
+    onPlayerError(errorEvent.detail);
 }
 
 function onPlayerError(error) {
@@ -39,7 +36,7 @@ function onPlayerError(error) {
 
 function onUIErrorEvent(errorEvent) {
     // Extract the shaka.util.Error object from the event.
-    onPlayerError(event.detail);
+    onPlayerError(errorEvent.detail);
 }
 
 function initFailed() {
