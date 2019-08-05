@@ -11,11 +11,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "dashjs": "^3.0.0",
     "font-awesome": "^4.7.0",
     "font-awesome-animation": "^0.2.1",
-    "silvermine-videojs-quality-selector": "^1.1.2",
-    "video.js": "^7.6.0"
+    "shaka-player": "^2.5.4"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",

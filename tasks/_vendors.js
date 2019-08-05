@@ -1,4 +1,3 @@
 module.exports = [
-    'dashjs',
-    'video.js'
+    'shaka-player',
 ];

@@ -3,7 +3,7 @@
     <title> Filly Movie </title>
     <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="node_modules/font-awesome-animation/dist/font-awesome-animation.min.css">
-    <link rel="stylesheet" href="node_modules/video.js/dist/video-js.min.css">
+    <link rel="stylesheet" href="node_modules/shaka-player/dist/controls.css">
 
     <link rel="stylesheet" href="src/css/main.css">
 
@@ -14,7 +14,12 @@
 <body>
     <div>
         <div class="left" id="divvid">
-            <video id="videoplayer" class="video-js"> </video>
+            <div data-shaka-player-container style="max-width:40em"
+            data-shaka-player-cast-receiver-id="A15A181D">
+          <!-- The data-shaka-player tag will make the UI library use this video element.
+               If no video is provided, the UI will automatically make one inside the container div. -->
+         <video autoplay data-shaka-player id="video" style="width:100%;height:100%"></video>
+       </div>
         </div>
 
         <div class="left" id="divchat">

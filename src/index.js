@@ -1,63 +1,54 @@
-const dashjs = require('dashjs');
-/**
- * @type { videojs.default }
- */
-const videojs = require('video.js');
+const shaka = require('shaka-player/dist/shaka-player.ui.js');
 
-const dashPlayer = dashjs.MediaPlayer().create();
-const video = document.querySelector('#videoplayer');
-const url = 'https://dash.akamaized.net/envivio/EnvivioDash3/manifest.mpd';
+// https://shaka-player-demo.appspot.com/docs/api/tutorial-ui.html
 
-dashPlayer.initialize(video, url, false);
-dashPlayer.updateSettings({ streaming: { abr: { autoSwitchBitrate: false } } });
-dashPlayer.on('streamInitialized', () => {
-    const qualities = dashPlayer.getBitrateInfoListFor('video');
-    const qualityIndex = qualities[0].qualityIndex; // lowest
-    // // const qualityIndex = qualities[qualities.length - 1].qualityIndex; // highest
-    dashPlayer.setQualityFor('video', qualityIndex);
+var manifestUri =
+    'https://dash.akamaized.net/envivio/EnvivioDash3/manifest.mpd';
 
-    const videojsOptions = {
-        controls: true,
-        autoplay: true,
-        controlBar: {
-            children: [
-                'playToggle',
-                'progressControl',
-                'volumePanel',
-                'qualitySelector',
-                'fullscreenToggle',
-            ]
-        }
-    };
+async function init() {
+    // When using the UI, the player is made automatically by the UI object.
+    const video = document.getElementById('video');
+    const ui = video['ui'];
+    const controls = ui.getControls();
+    const player = controls.getPlayer();
 
-    const vjsPlayer = videojs(video, videojsOptions);
-    const MenuButton = videojs.getComponent('MenuButton');
-    const menuButton = new MenuButton(vjsPlayer);
+    // Listen for error events.
+    player.addEventListener('error', onPlayerErrorEvent);
+    controls.addEventListener('error', onUIErrorEvent);
 
-    const Menu = videojs.getComponent('Menu');
-    const menu = new Menu(vjsPlayer, { menuButton });
-
-    const MenuItem = videojs.getComponent('MenuItem');
-
-    const QualityMenuItem = videojs.extend(MenuItem, {
-        constructor: function (player, options) {
-            this.qualityIndex = options.qualityIndex;
-            MenuItem.call(this, player, options);
-        },
-
-        handleClick: function (event) {
-            MenuItem.prototype.handleClick.call(this, event);
-            console.log(this.qualityIndex);
-            dashPlayer.setQualityFor('video', this.qualityIndex);
-        }
-    });
-
-    for (const quality of qualities) {
-        const menuItem1 = new QualityMenuItem(vjsPlayer, { label: quality.bitrate, qualityIndex: quality.qualityIndex });
-        menu.addItem(menuItem1);
+    // Try to load a manifest.
+    // This is an asynchronous process.
+    try {
+        await player.load(manifestUri);
+        // This runs if the asynchronous load is successful.
+        console.log('The video has now been loaded!');
+    } catch (error) {
+        onPlayerError(error);
     }
+}
 
-    menuButton.addChild(menu);
+function onPlayerErrorEvent(errorEvent) {
+    // Extract the shaka.util.Error object from the event.
+    onPlayerError(event.detail);
+}
 
-    vjsPlayer.controlBar.addChild(menuButton);
-});
+function onPlayerError(error) {
+    // Handle player error
+    console.error('Error code', error.code, 'object', error);
+}
+
+function onUIErrorEvent(errorEvent) {
+    // Extract the shaka.util.Error object from the event.
+    onPlayerError(event.detail);
+}
+
+function initFailed() {
+    // Handle the failure to load
+    console.error('Unable to load the UI library!');
+}
+
+// Listen to the custom shaka-ui-loaded event, to wait until the UI is loaded.
+document.addEventListener('shaka-ui-loaded', init);
+// Listen to the custom shaka-ui-load-failed event, in case Shaka Player fails
+// to load (e.g. due to lack of browser support).
+document.addEventListener('shaka-ui-load-failed', initFailed);
